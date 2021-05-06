@@ -219,10 +219,8 @@ class Service implements JsonSerializable
     // If no group exist or group is new, start a new UL
     if (!empty($this->group_name) && !in_array($this->group_name, $arrCompletedGroups)) {
       echo '<ul class="list-group components mt-3">';
-      //echo '<ul class="platforms list-group mb-2">';
       // Render the group status if it exists
       echo '<li class="list-group-item list-group-item-' . $classes[$this->status] . ' group-name"><span><i class="fas fa-folder-open"></i></span>&nbsp;' . $this->group_name . '<div class="status text-' . $classes[$this->status] . ' float-end">' . _($statuses[$this->status]) . '</div></li>';
-      //echo '<li class="cist-group-item d-flex flex-row justify-content-between platform list-group-item-action py-0 expanded" role="button">' . $this->group_name .'<div class="status '. $classes[$this->status] .'"'. _($statuses[$this->status]).'</div></li>';
       $arrCompletedGroups[] = $this->group_name;
       $boolOpened = true;
     }
@@ -230,17 +228,12 @@ class Service implements JsonSerializable
     if (empty($this->group_name)) {
       echo '<ul class="list-group components">';
 
-      //      echo '<ul class="platforms list-group mb-2">';
       $boolFinish = true;
     }
 
     // Render the service status
     echo '<div>';
-    echo '<li class="list-group-item sub-component"><strong>' . $this->name . '</strong>';
-    //echo '<li class="list-group-item d-flex flex-columns justify-content-between><span>+</span><h3 class="py-2 my-0 flex-fill expanded">' . $this->name . '</h3>';
-    if (!empty($this->description)) {
-      echo '<a class="desc-tool-tip" data-toggle="tooltip" data-placement="top" title="' . $this->description . '"> <span><i class="fas fa-question"></i></span></a>';
-    }
+    echo '<li class="list-group-item sub-component"><strong title="' . $this->description . '">' . $this->name . '</strong>';
     if ($this->status != -1) { ?><div class="float-end text-<?php echo $classes[$this->status]; ?>"><?php echo _($statuses[$this->status]); ?></div>
 <?php
     }

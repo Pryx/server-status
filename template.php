@@ -24,10 +24,10 @@ class Template
       // Check if we are on admin menu, if so do not display
       $arr_url = explode("/", $_SERVER['PHP_SELF']);
       $str_url = strtolower($arr_url[count($arr_url) - 2]);
+      $strSubsMenu = '';
       if ('admin' == $str_url) {
-        $strSubsMenu = '';
       } else {
-        if ($SUBSCRIBE_EMAIL || $SUBSCRIBE_TELEGRAM) {
+        if (SUBSCRIBE_EMAIL || SUBSCRIBE_TELEGRAM) {
           // Subscriber menu is to be shown...
           $strSubsMenu = '<ul class="nav navbar-nav mr-auto">';
           // If subscriber is not logged on, display subscriber menus
@@ -36,11 +36,11 @@ class Template
                                     <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="#"><span class="glyphicon glyphicon-th"></span>&nbsp;' . _('Subscribe') . '</a>
                                     <ul class="dropdown-menu ">';
 
-            if ($SUBSCRIBE_EMAIL) {
+            if (SUBSCRIBE_EMAIL) {
               $strSubsMenu .= '<li><a href="?do=email_subscription&amp;new=1"><span class="glyphicon glyphicon-envelope"></span>&nbsp;' . _('Subscribe via email') . '</a></li>';
             }
-            if ($SUBSCRIBE_TELEGRAM) {
-              $strSubsMenu .= '<li><a href="#"><script async src="https://telegram.org/js/telegram-widget.js?4" data-telegram-login="' . $TG_BOT_USERNAME . '" data-size="small" data-userpic="false" data-auth-url="' . WEB_URL . '/telegram_check.php" data-request-access="write"></script></a></li>';
+            if (SUBSCRIBE_TELEGRAM) {
+              $strSubsMenu .= '<li><a href="#"><script async src="https://telegram.org/js/telegram-widget.js?4" data-telegram-login="' . TG_BOT_USERNAME . '" data-size="small" data-userpic="false" data-auth-url="' . WEB_URL . '/telegram_check.php" data-request-access="write"></script></a></li>';
             }
             $strSubsMenu .=  '</ul>';
           }
@@ -83,7 +83,7 @@ class Template
       <meta name="msapplication-TileColor" content="#ffffff">
       <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
       <meta name="theme-color" content="#ffffff">
-      <link href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" rel="stylesheet">
+      <link href="/vendor/fontawesome/css/all.min.css" rel="stylesheet">
       <?php
       if (!$admin) {
         $headpath = $_SERVER['DOCUMENT_ROOT'] . "/head.txt";
@@ -106,10 +106,10 @@ class Template
           <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid">
               <a class="navbar-brand" href="<?php echo WEB_URL; ?>/"><img src="<?php if (strlen(CUSTOM_LOGO_URL) > 1) {
-                                                                                      echo CUSTOM_LOGO_URL;
-                                                                                    } else {
-                                                                                      echo WEB_URL . "/img/logo_white.png";
-                                                                                    } ?>" alt="logo" class="menu-logo" width="50" height="50"></a>
+                                                                                  echo CUSTOM_LOGO_URL;
+                                                                                } else {
+                                                                                  echo WEB_URL . "/img/logo_white.png";
+                                                                                } ?>" alt="logo" class="menu-logo" width="50" height="50"></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -204,14 +204,14 @@ class Template
                                                                                                                                                                                                                                                                           } ?></div>
             <div class="col-md-4 text-center">
               <div class="input-group dropup mb-3">
-                <button type="button" class="btn btn-primary" disabled><?php echo '<img src="' . $WEB_URL . '/locale/' . $_SESSION['locale'] . '/flag.png" alt="' . $lang_names[$_SESSION['locale']] . '">' . $lang_names[$_SESSION['locale']]; ?></button>
+                <button type="button" class="btn btn-primary" disabled><?php echo '<img src="' . WEB_URL . '/locale/' . $_SESSION['locale'] . '/flag.png" alt="' . $lang_names[$_SESSION['locale']] . '">' . $lang_names[$_SESSION['locale']]; ?></button>
                 <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                   <span class="visually-hidden"><?php echo _("Toggle Dropdown"); ?></span>
                 </button>
                 <ul class="dropdown-menu">
                   <?php
                   foreach ($lang_names as $key => $value) {
-                    echo '<a href="?lang=' . $key . '"><img src="' . $WEB_URL . '/locale/' . $key . '/flag.png" alt="' . $value . '">' . $value . '</a>';
+                    echo '<a href="?lang=' . $key . '"><img src="' . WEB_URL . '/locale/' . $key . '/flag.png" alt="' . $value . '">' . $value . '</a>';
                   }
                   ?>
                   <li>
@@ -221,7 +221,7 @@ class Template
                 </ul>
               </div>
             </div>
-            <div class="col-md-4 text-right"><a class="link-light" href="<?php echo IMPRINT_URL; ?>"><?php echo _("Imprint"); ?></a><a class="link-light" href="<?php echo POLICY_URL; ?>"><?php echo _("Privacy Policy"); ?></a></div>
+            <div class="col-md-4 text-right"><a class="link-light" href="<?php echo IMPRINT_URL; ?>"><?php echo _("Imprint"); ?></a> <a class="link-light" href="<?php echo POLICY_URL; ?>"><?php echo _("Privacy Policy"); ?></a></div>
           </div>
           <!--/row -->
         </div>
@@ -235,7 +235,7 @@ class Template
         <script src="<?php echo WEB_URL; ?>/vendor/flatpickr/flatpickr.min.js"></script>
         <script src="<?php echo WEB_URL; ?>/js/admin.js"></script>
       <?php } ?>
-      <?php if ($GOOGLE_RECAPTCHA) { ?><script src='https://www.google.com/recaptcha/api.js'></script><?php } ?>
+      <?php if (GOOGLE_RECAPTCHA) { ?><script src='https://www.google.com/recaptcha/api.js'></script><?php } ?>
     </body>
 
     </html>
